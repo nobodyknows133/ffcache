@@ -1,6 +1,7 @@
 package cache
 
 import (
+	"fmt"
 	"sync"
 	"time"
 )
@@ -29,7 +30,12 @@ func (c *Cache) Set(key string, value []byte, ttl time.Duration) error {
 func (c *Cache) Get(key []byte) ([]byte, error) {
 	c.lock.RLock()
 	defer c.lock.RUnlock()
-	return c.data[string(key)], nil
+	keyStr := string(key)
+	value, exists := c.data[keyStr]
+	if !exists {
+		return nil, fmt.Errorf("error: key (%s) not found", keyStr) // or return an error indicating key not found
+	}
+	return value, nil
 }
 
 func (c *Cache) Delete(key []byte) error {
