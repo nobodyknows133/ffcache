@@ -20,7 +20,7 @@ func NewCache() *Cache {
 	}
 }
 
-func (c *Cache) Set(key string, value []byte, ttl time.Duration) error {
+func (c *Cache) Set(key []byte, value []byte, ttl time.Duration) error {
 	c.lock.Lock()
 	defer c.lock.Unlock()
 	c.data[string(key)] = value

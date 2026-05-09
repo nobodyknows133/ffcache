@@ -1,2 +1,6 @@
+build:
+	@go build -o bin/ffcache
+
 run:
-	@go run main.go
+	@./bin/ffcache
+

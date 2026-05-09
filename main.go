@@ -1,7 +1,13 @@
 package main
 
-import "fmt"
+import "ffcache/cache"
 
 func main() {
-	fmt.Println("Hello, World!")
+	opts := ServerOpts{
+		ListenAddr: ":3000",
+		IsLeader:   true,
+	}
+
+	server := NewServer(opts, cache.NewCache())
+	server.Start()
 }
